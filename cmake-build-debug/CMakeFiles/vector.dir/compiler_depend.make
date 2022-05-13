@@ -213,8 +213,15 @@ CMakeFiles/vector.dir/main.cpp.o: ../main.cpp \
   /usr/include/c++/11/limits \
   /usr/include/c++/11/ctime \
   /usr/include/c++/11/bits/parse_numbers.h \
-  ../vector.hpp
+  ../vector.hpp \
+  /usr/include/c++/11/cstring \
+  /usr/include/string.h \
+  /usr/include/strings.h
 
+
+/usr/include/strings.h:
+
+/usr/include/string.h:
 
 /usr/include/c++/11/ratio:
 
@@ -235,6 +242,8 @@ CMakeFiles/vector.dir/main.cpp.o: ../main.cpp \
 /usr/include/c++/11/unordered_map:
 
 /usr/include/c++/11/bits/invoke.h:
+
+/usr/include/c++/11/cstring:
 
 /usr/include/c++/11/bits/uses_allocator.h:
 

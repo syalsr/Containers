@@ -1,7 +1,7 @@
 #pragma once
 
 #include <cstdio>
-
+#include <cstring>
 template<typename T>
 class Storage
 {
@@ -147,6 +147,15 @@ public:
             ++it; ++first;
         }
     }
+    template<typename It>
+    void insert(It pos, T const& elem)
+    {
+        if(used_ == size_)
+            realloc(size_*2);
+
+        std::copy(data_, data_+used_, data_+1);
+        *data_ = elem;
+    }
     vector(vector const& other) : Storage<value_type>{other.size_}
     {
         for(int i = 0; i < other.size_; ++i)
@@ -243,10 +252,11 @@ private:
     void realloc(size_t size)
     {
         vector v{size};
-        for(int i = 0; i < used_; ++i)
+        memcpy(v.data(),data_,sizeof(T)*size);
+        /*for(int i = 0; i < used_; ++i)
         {
             new(v.data_+i) T{data_[i]};
-        }
+        }*/
         v.used_ = used_;
 
         swap(*this, v);

@@ -200,4 +200,6 @@ CMakeFiles/vector.dir/main.cpp.o: \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/limits \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/ctime \
   /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/bits/parse_numbers.h \
-  /home/syalsr/Projects_for_git/vector/vector.hpp
+  /home/syalsr/Projects_for_git/vector/vector.hpp \
+  /usr/bin/../lib/gcc/x86_64-linux-gnu/11/../../../../include/c++/11/cstring \
+  /usr/include/string.h /usr/include/strings.h

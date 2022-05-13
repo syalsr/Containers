@@ -77,23 +77,13 @@ void timt()
 }
 
 int main() {
-    vector<int> d{2,3};
     //timt();
     vector<int> v(5);
     v[0]=0;
     v[1]=1;
     v[2]=2;
-    for(auto&& i : v)
-    {
-        std::cout << i;
-    }
+    Iterator<int> first{v.data()};
+    v.insert(first, 2);
 
-    Iterator first{v.data()};
-    Iterator last{v.data()+v.size()};
-    vector<int> vv{first, last};
-    for(auto&& i : vv)
-    {
-        std::cout << i;
-    }
     return 0;
 }
