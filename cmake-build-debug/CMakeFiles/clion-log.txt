@@ -1,16 +1,4 @@
 C:\Windows\system32\wsl.exe --distribution Ubuntu --exec /bin/bash -c "export CLION_IDE=TRUE && export JETBRAINS_IDE=TRUE && cd /home/syalsr/Projects_for_git/vector/cmake-build-debug && /usr/local/bin/cmake -DCMAKE_BUILD_TYPE=Debug -DCMAKE_MAKE_PROGRAM=/usr/bin/make -DCMAKE_C_COMPILER=/usr/bin/clang-12 '-DCMAKE_CXX_COMPILER=/usr/bin/clang++-12' -G 'CodeBlocks - Unix Makefiles' -S /home/syalsr/Projects_for_git/vector -B /home/syalsr/Projects_for_git/vector/cmake-build-debug"
--- The C compiler identification is Clang 12.0.0
--- The CXX compiler identification is Clang 12.0.0
--- Detecting C compiler ABI info
--- Detecting C compiler ABI info - done
--- Check for working C compiler: /usr/bin/clang-12 - skipped
--- Detecting C compile features
--- Detecting C compile features - done
--- Detecting CXX compiler ABI info
--- Detecting CXX compiler ABI info - done
--- Check for working CXX compiler: /usr/bin/clang++-12 - skipped
--- Detecting CXX compile features
--- Detecting CXX compile features - done
 -- Configuring done
 -- Generating done
 -- Build files have been written to: /home/syalsr/Projects_for_git/vector/cmake-build-debug
