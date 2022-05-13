@@ -77,7 +77,7 @@ void timt()
 }
 
 int main() {
-
+    vector<int> d{2,3};
     //timt();
     vector<int> v(5);
     v[0]=0;

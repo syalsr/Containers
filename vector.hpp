@@ -136,7 +136,8 @@ public:
             new(data_+size_) T{elem};
         }
     }
-    vector(iterator first, iterator last) : Storage<value_type>{static_cast<size_t>(std::distance(first, last))}
+    template<typename It, typename = std::void_t<decltype(*It{}), decltype(++It{})>>
+    vector(It first, It last) : Storage<value_type>{static_cast<size_t>(std::distance(first, last))}
     {
         auto it = this->begin();
         while(it != this->end())
