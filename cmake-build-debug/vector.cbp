@@ -85,6 +85,9 @@
 		<Unit filename="/home/syalsr/Projects_for_git/vector/main.cpp">
 			<Option target="vector"/>
 		</Unit>
+		<Unit filename="/home/syalsr/Projects_for_git/vector/vector.hpp">
+			<Option target="vector"/>
+		</Unit>
 		<Unit filename="/home/syalsr/Projects_for_git/vector/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
