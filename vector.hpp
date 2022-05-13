@@ -80,7 +80,8 @@ public:
 
     explicit Iterator(T* ptr) : ptr_{ptr}
     {}
-    Iterator(Iterator const& other)=default;
+    Iterator(Iterator const& other) : ptr_{other.ptr_}
+    {}
     Iterator& operator=(Iterator const& other)=default;
 
     Iterator& operator++()   { ++ptr_; return *this;                }
@@ -136,7 +137,7 @@ public:
             new(data_+size_) T{elem};
         }
     }
-    template<typename It, typename = std::void_t<decltype(*It{}), decltype(++It{})>>
+    template<typename It, typename = std::void_t<decltype(*std::declval<It&>()), decltype(++std::declval<It&>())>>
     vector(It first, It last) : Storage<value_type>{static_cast<size_t>(std::distance(first, last))}
     {
         auto it = this->begin();
