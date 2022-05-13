@@ -8,20 +8,16 @@ class Storage
 public:
     using pointer = T*;
 
-    explicit Storage(size_t size_memory=4) noexcept :
+    explicit Storage(const size_t size_memory=4) noexcept :
                                             size_{size_memory},
+                                            used_{size_memory},
                                             data_{static_cast<T*>(::operator new(size_memory * sizeof(T)))}
 
     {}
-    Storage(size_t size, const T& elem)
-    {
-        data_ = static_cast<T*>(::operator new(size * sizeof(T)));
-        for(;size_ < size; ++size_)
-        {
-            new(data_+size_) T{elem};
-        }
-        used_ = size_;
-    }
+    Storage(const size_t size, const T& elem) : size_{size},
+                                                used_{size},
+                                                data_{static_cast<T*>(::operator new(size * sizeof(T)))}
+    {}
     Storage(Storage&& other) noexcept
     {
         std::swap(size_, other.size_);
@@ -133,8 +129,22 @@ public:
 
     explicit vector(std::size_t size) : Storage<value_type>{size}
     {}
-    vector(std::size_t size, const value_type& elem) : Storage<value_type>{size, elem}
-    {}
+    vector(const std::size_t size, const value_type& elem) : Storage<value_type>{size, elem}
+    {
+        for(int i = 0; i < size_; ++i)
+        {
+            new(data_+size_) T{elem};
+        }
+    }
+    vector(iterator first, iterator last) : Storage<value_type>{static_cast<size_t>(std::distance(first, last))}
+    {
+        auto it = this->begin();
+        while(it != this->end())
+        {
+            *it = *first;
+            ++it; ++first;
+        }
+    }
     vector(vector const& other) : Storage<value_type>{other.size_}
     {
         for(int i = 0; i < other.size_; ++i)
@@ -180,6 +190,10 @@ public:
             return true;
         return false;
     }
+    size_t size()
+    {
+        return used_;
+    }
     reference operator[](size_t id) noexcept
     {
         return data_[id];
@@ -213,7 +227,7 @@ public:
     }
     iterator end()
     {
-        return Iterator{data_+size_};
+        return Iterator{data_+used_};
     }
     const_iterator begin() const
     {
@@ -221,7 +235,7 @@ public:
     }
     const_iterator end() const
     {
-        return Iterator{data_+size_};
+        return Iterator{data_+used_};
     }
 private:
     void realloc(size_t size)
