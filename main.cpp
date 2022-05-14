@@ -78,12 +78,7 @@ void timt()
 
 int main() {
     //timt();
-    vector<int> v(5);
-    v[0]=0;
-    v[1]=1;
-    v[2]=2;
-    Iterator<int> first{v.data()};
-    v.insert(first, 2);
+    vector<int> v{1,2,3,4,5,6,7,8,9,0};
 
     return 0;
 }

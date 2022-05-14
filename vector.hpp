@@ -132,9 +132,14 @@ public:
     {}
     vector(const std::size_t size, const value_type& elem) : Storage<value_type>{size, elem}
     {
-        for(int i = 0; i < size_; ++i)
+        std::fill(data_, data_+used_, elem);
+    }
+    vector(std::initializer_list<T> list) : Storage<value_type>{list.size()}
+    {
+        int i{0};
+        for(auto it = list.begin(); it != list.end(); ++it, ++i)
         {
-            new(data_+size_) T{elem};
+            new(data_ + i) value_type{*it};
         }
     }
     template<typename It, typename = std::void_t<decltype(*std::declval<It&>()), decltype(++std::declval<It&>())>>
@@ -251,7 +256,7 @@ public:
 private:
     void realloc(size_t size)
     {
-        vector v{size};
+        vector v(size);
         memcpy(v.data(),data_,sizeof(T)*size);
         /*for(int i = 0; i < used_; ++i)
         {
