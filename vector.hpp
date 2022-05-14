@@ -152,15 +152,6 @@ public:
             ++it; ++first;
         }
     }
-    template<typename It>
-    void insert(It pos, T const& elem)
-    {
-        if(used_ == size_)
-            realloc(size_*2);
-
-        std::copy(data_, data_+used_, data_+1);
-        *data_ = elem;
-    }
     vector(vector const& other) : Storage<value_type>{other.size_}
     {
         for(int i = 0; i < other.size_; ++i)
@@ -184,6 +175,15 @@ public:
         swap(*this, other);
     }
 
+    template<typename It>
+    void insert(It pos, T const& elem)
+    {
+        if(used_ == size_)
+            realloc(size_*2);
+
+        std::copy(data_, data_+used_, data_+1);
+        *data_ = elem;
+    }
     template<typename Arg>
     void push_back(Arg&& elem)
     {
@@ -193,12 +193,25 @@ public:
         new(data_ + used_) value_type{std::forward<Arg>(elem)};
         ++used_;
     }
+    template<typename ... Args>
+    void emplase_back(Args&& ... args)
+    {
+        if(size_ == used_)
+            realloc(size_*2);
+
+        new(data_ + used_) value_type {std::forward<Args>(args)...};
+        ++used_;
+    }
     void pop()
     {
         if(empty())
             throw std::length_error{"vector is empty"};
-        data_[size_-1].~value_type();
+        data_[used_-1].~value_type();
         --used_;
+    }
+    T& top()
+    {
+        return data_[used_-1];
     }
     [[nodiscard]] bool empty() const
     {
@@ -227,15 +240,6 @@ public:
     pointer data()
     {
         return data_;
-    }
-    template<typename ... Args>
-    void emplase_back(Args&& ... args)
-    {
-        if(size_ == used_)
-            realloc(size_*2);
-
-        new(data_ + used_) value_type {std::forward<Args>(args)...};
-        ++used_;
     }
     iterator begin()
     {
