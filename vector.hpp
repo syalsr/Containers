@@ -72,10 +72,10 @@ class Iterator
 {
 public:
     using iterator_category = std::random_access_iterator_tag;
-    using value_type        = typename std::iterator_traits<T>::value_type;
-    using difference_type   = typename std::iterator_traits<T>::difference_type;
-    using pointer           = typename std::iterator_traits<T>::pointer;
-    using reference         = typename std::iterator_traits<T>::reference;
+    using value_type        = typename std::iterator_traits<T*>::value_type;
+    using difference_type   = typename std::iterator_traits<T*>::difference_type;
+    using pointer           = typename std::iterator_traits<T*>::pointer;
+    using reference         = typename std::iterator_traits<T*>::reference;
 
 
     explicit Iterator(T* ptr) : ptr_{ptr}
@@ -89,9 +89,9 @@ public:
     Iterator operator++(int) { Iterator i{*this}; ++ptr_; return i; }
     Iterator operator--(int) { Iterator i{*this}; --ptr_; return i; }
 
-    bool equals(T const& rhs)            const { return ptr_ == rhs.ptr_;}
-    bool greater(T const& rhs)           const { return ptr_ > rhs;      }
-    bool greater_or_equals(T const& rhs) const { return ptr_ >= rhs.ptr_;}
+    bool equals(Iterator<T> const& rhs)            const { return ptr_ == rhs.ptr_;}
+    bool greater(Iterator<T> const& rhs)           const { return ptr_ > rhs;      }
+    bool greater_or_equals(Iterator<T> const& rhs) const { return ptr_ >= rhs.ptr_;}
 
     reference operator*() const { return *ptr_; }
     pointer operator->() const  { return ptr_;  }
@@ -102,6 +102,7 @@ public:
 
     Iterator operator+(difference_type const dif) const { return Iterator{ptr_ + dif}; }
     Iterator operator-(difference_type const dif) const { return Iterator{ptr_ - dif}; }
+    Iterator operator=(difference_type const dif) {*ptr_ = dif; return *this;}
 private:
     pointer ptr_;
 };
@@ -127,12 +128,12 @@ bool operator<= (Iterator<T> const& lhs, Iterator<T> const& rhs)  { return !(lhs
 template<typename T>
 class vector : public Storage<T>
 {
-    using pointer           = typename std::iterator_traits<T>::pointer;
-    using const_pointer     = typename std::iterator_traits<const T>::pointer;
-    using reference         = typename std::iterator_traits<T>::reference;
-    using const_reference   = typename std::iterator_traits<const T>::reference;
-    using value_type        = typename std::iterator_traits<T>::value_type;
-    using difference_type   = typename std::iterator_traits<T>::difference_type;
+    using pointer           = typename std::iterator_traits<T*>::pointer;
+    using const_pointer     = typename std::iterator_traits<const T*>::pointer;
+    using reference         = typename std::iterator_traits<T*>::reference;
+    using const_reference   = typename std::iterator_traits<const T*>::reference;
+    using value_type        = typename std::iterator_traits<T*>::value_type;
+    using difference_type   = typename std::iterator_traits<T*>::difference_type;
 
     using iterator          = Iterator<T>;
     using const_iterator    = const Iterator<T>;
@@ -188,7 +189,9 @@ public:
     {}
     vector& operator=(vector&& other) noexcept
     {
-        swap(*this, other);
+        if(this != &other)
+            swap(*this, other);
+        return *this;
     }
 
     template<typename It>
@@ -225,59 +228,34 @@ public:
         data_[used_-1].~value_type();
         --used_;
     }
-    T& top()
-    {
-        return data_[used_-1];
-    }
+    T& top() const { return data_[used_-1]; }
     [[nodiscard]] bool empty() const
     {
         if(size_ == 0)
             return true;
         return false;
     }
-    size_t size()
-    {
-        return used_;
-    }
-    reference operator[](size_t id) noexcept
-    {
-        return data_[id];
-    }
+    size_t size() { return used_; }
+    reference operator[](size_t id) noexcept { return data_[id]; }
+
     void swap(vector& v1, vector& v2)
     {
         std::swap(v1.size_, v2.size_);
         std::swap(v1.used_, v2.used_);
         std::swap(v1.data_, v2.data_);
     }
-    const_pointer data() const
-    {
-        return data_;
-    }
-    pointer data()
-    {
-        return data_;
-    }
-    iterator begin()
-    {
-        return Iterator{data_};
-    }
-    iterator end()
-    {
-        return Iterator{data_+used_};
-    }
-    const_iterator begin() const
-    {
-        return Iterator{data_};
-    }
-    const_iterator end() const
-    {
-        return Iterator{data_+used_};
-    }
+    const_pointer data() const  { return data_; }
+    pointer data()              { return data_; }
+
+    iterator begin()              { return Iterator{data_};       }
+    iterator end()                { return Iterator{data_+used_}; }
+    const_iterator begin()  const { return Iterator{data_};       }
+    const_iterator end()    const { return Iterator{data_+used_}; }
 private:
     void realloc(size_t size)
     {
         vector v(size);
-        memcpy(v.data(),data_,sizeof(T)*size);
+        std::memcpy(static_cast<void*>(v.data()),data_,sizeof(T) * size);
         /*for(int i = 0; i < used_; ++i)
         {
             new(v.data_+i) T{data_[i]};

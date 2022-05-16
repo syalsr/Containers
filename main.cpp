@@ -79,7 +79,10 @@ void timt()
 int main() {
     //timt();
     vector<int> v{1,2,3,4,5,6,7,8,9,0};
-    auto& it = v.top();
+    auto&& it = v.begin();
     it = 3;
+    const vector<int> v1{1,2,3,4,5,6,7,8,9,0};
+    auto&& it1 = v1.begin();
+    it1 = 5;
     return 0;
 }
