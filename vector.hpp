@@ -127,12 +127,13 @@ bool operator<= (Iterator<T> const& lhs, Iterator<T> const& rhs)  { return !(lhs
 template<typename T>
 class vector : public Storage<T>
 {
-    using pointer           = T*;
-    using const_pointer     = const T*;
-    using reference         = T&;
-    using const_reference   = T const&;
-    using value_type        = T;
-    using difference_type   = ptrdiff_t;
+    using pointer           = typename std::iterator_traits<T>::pointer;
+    using const_pointer     = typename std::iterator_traits<const T>::pointer;
+    using reference         = typename std::iterator_traits<T>::reference;
+    using const_reference   = typename std::iterator_traits<const T>::reference;
+    using value_type        = typename std::iterator_traits<T>::value_type;
+    using difference_type   = typename std::iterator_traits<T>::difference_type;
+
     using iterator          = Iterator<T>;
     using const_iterator    = const Iterator<T>;
 
