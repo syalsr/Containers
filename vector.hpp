@@ -89,12 +89,9 @@ public:
     Iterator operator++(int) { Iterator i{*this}; ++ptr_; return i; }
     Iterator operator--(int) { Iterator i{*this}; --ptr_; return i; }
 
-    bool operator== (Iterator const& iter) const { return ptr_ == iter.ptr_; }
-    bool operator!= (Iterator const& iter) const { return ptr_ != iter.ptr_; }
-    bool operator<  (Iterator const& it)   const { return ptr_ < it.ptr_;    }
-    bool operator>  (Iterator const& it)   const { return ptr_ > it.ptr_;    }
-    bool operator>= (Iterator const& it)   const { return !(ptr_ < it.ptr_); }
-    bool operator<= (Iterator const& it)   const { return !(ptr_ > it.ptr_); }
+    bool equals(T const& rhs)            const { return ptr_ == rhs.ptr_;}
+    bool greater(T const& rhs)           const { return ptr_ > rhs;      }
+    bool greater_or_equals(T const& rhs) const { return ptr_ >= rhs.ptr_;}
 
     reference operator*() const { return *ptr_; }
     pointer operator->() const  { return ptr_;  }
@@ -108,6 +105,24 @@ public:
 private:
     pointer ptr_;
 };
+template<typename T>
+bool operator== (Iterator<T> const& lhs, Iterator<T> const& rhs)  { return lhs.equals(rhs); }
+
+template<typename T>
+bool operator!= (Iterator<T> const& lhs, Iterator<T> const& rhs)  { return !(lhs.equals(rhs)); }
+
+template<typename T>
+bool operator<  (Iterator<T> const& lhs, Iterator<T> const& rhs)  { return !(lhs.greater_or_equals(rhs)); }
+
+template<typename T>
+bool operator>  (Iterator<T> const& lhs, Iterator<T> const& rhs)  { return lhs.greater(rhs);   }
+
+template<typename T>
+bool operator>= (Iterator<T> const& lhs, Iterator<T> const& rhs)  { return lhs.greater_or_equals(rhs); }
+
+template<typename T>
+bool operator<= (Iterator<T> const& lhs, Iterator<T> const& rhs)  { return !(lhs.greater(rhs)); }
+
 
 template<typename T>
 class vector : public Storage<T>
