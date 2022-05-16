@@ -72,10 +72,10 @@ class Iterator
 {
 public:
     using iterator_category = std::random_access_iterator_tag;
-    using value_type        = T;
-    using difference_type   = ptrdiff_t;
-    using pointer           = T*;
-    using reference         = T&;
+    using value_type        = typename std::iterator_traits<T>::value_type;
+    using difference_type   = typename std::iterator_traits<T>::difference_type;
+    using pointer           = typename std::iterator_traits<T>::pointer;
+    using reference         = typename std::iterator_traits<T>::reference;
 
 
     explicit Iterator(T* ptr) : ptr_{ptr}
