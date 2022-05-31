@@ -1,1 +1,1 @@
-/usr/bin/clang++-12 -g CMakeFiles/vector.dir/main.cpp.o -o vector 
+/usr/bin/g++-11 -g CMakeFiles/vector.dir/main.cpp.o -o vector 

@@ -153,17 +153,20 @@ public:
     }
     vector(std::initializer_list<T> list) : Storage<value_type>{list.size()}
     {
-        int i{0};
+        int i{};
         for(auto it = list.begin(); it != list.end(); ++it, ++i)
         {
             new(data_ + i) value_type{*it};
         }
+        used_ = size_;
     }
-    template<typename It, typename = std::void_t<decltype(*std::declval<It&>()), decltype(++std::declval<It&>())>>
+    template<typename It, typename = std::void_t<decltype(*std::declval<It&>()),
+                                                 decltype(++std::declval<It&>())
+                                                 >>
     vector(It first, It last) : Storage<value_type>{static_cast<size_t>(std::distance(first, last))}
     {
-        auto it = this->begin();
-        while(it != this->end())
+        auto it = begin();
+        while(it != end())
         {
             *it = *first;
             ++it; ++first;

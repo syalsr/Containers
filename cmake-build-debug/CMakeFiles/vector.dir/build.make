@@ -73,15 +73,15 @@ CMakeFiles/vector.dir/main.cpp.o: CMakeFiles/vector.dir/flags.make
 CMakeFiles/vector.dir/main.cpp.o: ../main.cpp
 CMakeFiles/vector.dir/main.cpp.o: CMakeFiles/vector.dir/compiler_depend.ts
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/syalsr/Projects_for_git/vector/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/vector.dir/main.cpp.o"
-	/usr/bin/clang++-12 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/vector.dir/main.cpp.o -MF CMakeFiles/vector.dir/main.cpp.o.d -o CMakeFiles/vector.dir/main.cpp.o -c /home/syalsr/Projects_for_git/vector/main.cpp
+	/usr/bin/g++-11 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/vector.dir/main.cpp.o -MF CMakeFiles/vector.dir/main.cpp.o.d -o CMakeFiles/vector.dir/main.cpp.o -c /home/syalsr/Projects_for_git/vector/main.cpp
 
 CMakeFiles/vector.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/vector.dir/main.cpp.i"
-	/usr/bin/clang++-12 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/syalsr/Projects_for_git/vector/main.cpp > CMakeFiles/vector.dir/main.cpp.i
+	/usr/bin/g++-11 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/syalsr/Projects_for_git/vector/main.cpp > CMakeFiles/vector.dir/main.cpp.i
 
 CMakeFiles/vector.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/vector.dir/main.cpp.s"
-	/usr/bin/clang++-12 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/syalsr/Projects_for_git/vector/main.cpp -o CMakeFiles/vector.dir/main.cpp.s
+	/usr/bin/g++-11 $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/syalsr/Projects_for_git/vector/main.cpp -o CMakeFiles/vector.dir/main.cpp.s
 
 # Object files for target vector
 vector_OBJECTS = \

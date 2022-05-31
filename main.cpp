@@ -1,7 +1,7 @@
 #include <iostream>
 #include <algorithm>
 #include <string>
-#include <time.h>
+#include <ctime>
 #include <chrono>
 #include <vector>
 
@@ -53,6 +53,12 @@ void test()
     std::sort(v.begin(), v.end());
     for(auto&& i : v)
         std::cout << i;
+/*        vector<int> v{1,2,3,4,5,6,7,8,9,0};
+    auto&& it = v.begin();
+    it = 3;
+    const vector<int> v1{1,2,3,4,5,6,7,8,9,0};
+    auto&& it1 = v1.begin();
+    it1 = 5;*/
 }
 
 void timt()
@@ -75,14 +81,13 @@ void timt()
         }
     }
 }
-
+struct S
+{
+	double j;
+	int j1;
+	int l;
+};
 int main() {
-    //timt();
-    vector<int> v{1,2,3,4,5,6,7,8,9,0};
-    auto&& it = v.begin();
-    it = 3;
-    const vector<int> v1{1,2,3,4,5,6,7,8,9,0};
-    auto&& it1 = v1.begin();
-    it1 = 5;
+    vector<int> v{1,2,3,4,5,6};
     return 0;
 }
