@@ -53,7 +53,7 @@ public:
         }
         return *this;
     }
-    ~Storage()
+    virtual ~Storage()
     {
         for(int i = 0; i < used_; ++i)
         {
@@ -201,7 +201,7 @@ public:
     void insert(It pos, T const& elem)
     {
         if(used_ == size_)
-            realloc(size_*2);
+            realloc(size_);
 
         std::copy(data_, data_+used_, data_+1);
         *data_ = elem;
@@ -210,7 +210,7 @@ public:
     void push_back(Arg&& elem)
     {
         if(size_ == used_)
-            realloc(size_ * 2);
+            realloc(size_ );
 
         new(data_ + used_) value_type{std::forward<Arg>(elem)};
         ++used_;
@@ -219,7 +219,7 @@ public:
     void emplase_back(Args&& ... args)
     {
         if(size_ == used_)
-            realloc(size_*2);
+            realloc(size_);
 
         new(data_ + used_) value_type {std::forward<Args>(args)...};
         ++used_;
@@ -257,7 +257,7 @@ public:
 private:
     void realloc(size_t size)
     {
-        vector v(size);
+        vector v(size * 2);
         std::memcpy(static_cast<void*>(v.data()),data_,sizeof(T) * size);
         /*for(int i = 0; i < used_; ++i)
         {
