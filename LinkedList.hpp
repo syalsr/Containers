@@ -99,10 +99,10 @@ public:
         }
         else
         {
+            auto tmp{end};
             end->next = new list_utils::Node<T>{};
             end = end->next;
-            end->prev = std::prev(end);
-            end->prev->prev->next = std::prev(end);
+            end->prev = tmp;
             end->value = value;
         }
         ++size;
