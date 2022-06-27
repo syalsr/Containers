@@ -3,4 +3,4 @@ project(vector)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(vector main.cpp vector.hpp)
+add_executable(vector main.cpp vector.hpp LinkedList.hpp)
