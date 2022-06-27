@@ -93,7 +93,7 @@ public:
     {
         if(isEmpty())
         {
-            list_utils::Node<T> * head = new list_utils::Node<T>{};
+            auto * head = new list_utils::Node<T>{};
             head->value = value;
             begin = end = head;
         }
@@ -102,11 +102,27 @@ public:
             end->next = new list_utils::Node<T>{};
             end = end->next;
             end->prev = std::prev(end);
+            end->prev->prev->next = std::prev(end);
             end->value = value;
         }
         ++size;
     }
-    void pushFront(const T& value);
+    void pushFront(const T& value)
+    {
+        if(isEmpty())
+        {
+            auto * head = new list_utils::Node<T>{};
+            head->value = value;
+            begin = end = head;
+        }
+        else
+        {
+            begin->prev = new list_utils::Node<T>{};
+            begin = begin->prev;
+            begin->value = value;
+        }
+        ++size;
+    }
     void popBack();
     void popFront();
 

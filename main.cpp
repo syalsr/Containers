@@ -4,9 +4,8 @@
 #include <ctime>
 #include <chrono>
 #include <vector>
-#include <list>
 #include "vector.hpp"
-
+#include "LinkedList.hpp"
 using namespace std::chrono;
 
 
@@ -88,11 +87,10 @@ struct S
 	int l;
 };
 int main() {
-    std::list<int> l;
-    l.push_back(1);
-    l.push_back(3);
-    l.push_back(5);
-    auto it = std::find(l.begin(), l.end(), 3);
-    l.insert(it, 90);
+    linked_list<int> l;
+    l.pushBack(1);
+    l.pushBack(2);
+    l.pushBack(51);
+    l.pushBack(31);
     return 0;
 }
