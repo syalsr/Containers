@@ -4,7 +4,7 @@
 #include <ctime>
 #include <chrono>
 #include <vector>
-
+#include <list>
 #include "vector.hpp"
 
 using namespace std::chrono;
@@ -88,6 +88,11 @@ struct S
 	int l;
 };
 int main() {
-    vector<int> v{1,2,3,4,5,6};
+    std::list<int> l;
+    l.push_back(1);
+    l.push_back(3);
+    l.push_back(5);
+    auto it = std::find(l.begin(), l.end(), 3);
+    l.insert(it, 90);
     return 0;
 }
