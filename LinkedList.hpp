@@ -91,7 +91,20 @@ public:
     }
     void pushBack(const T& value)
     {
-
+        if(isEmpty())
+        {
+            list_utils::Node<T> * head = new list_utils::Node<T>{};
+            head->value = value;
+            begin = end = head;
+        }
+        else
+        {
+            end->next = new list_utils::Node<T>{};
+            end = end->next;
+            end->prev = std::prev(end);
+            end->value = value;
+        }
+        ++size;
     }
     void pushFront(const T& value);
     void popBack();
