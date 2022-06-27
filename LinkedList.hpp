@@ -66,39 +66,32 @@ struct Node {
 }
 
 template<typename T>
-class linked_list
-{
+class linked_list {
 public:
     linked_list() = default;
-    linked_list(const linked_list& other)
-    {
+
+    linked_list(const linked_list &other) {
 
     }
 
-    linked_list(linked_list&& other)
-    {
+    linked_list(linked_list &&other) {
 
     }
 
-    linked_list& operator=(const linked_list& other)
-    {
+    linked_list &operator=(const linked_list &other) {
 
     }
 
-    linked_list& operator=(linked_list&& other)
-    {
+    linked_list &operator=(linked_list &&other) {
 
     }
-    void push_back(const T& value)
-    {
-        if(isEmpty())
-        {
-            auto * head = new list_utils::Node<T>{};
+
+    void push_back(const T &value) {
+        if (isEmpty()) {
+            auto *head = new list_utils::Node<T>{};
             head->value = value;
             begin = end = head;
-        }
-        else
-        {
+        } else {
             auto tmp{end};
             end->next = new list_utils::Node<T>{};
             end = end->next;
@@ -107,16 +100,13 @@ public:
         }
         ++size;
     }
-    void push_front(const T& value)
-    {
-        if(isEmpty())
-        {
-            auto * head = new list_utils::Node<T>{};
+
+    void push_front(const T &value) {
+        if (isEmpty()) {
+            auto *head = new list_utils::Node<T>{};
             head->value = value;
             begin = end = head;
-        }
-        else
-        {
+        } else {
             auto tmp{begin};
             begin->prev = new list_utils::Node<T>{};
             begin = begin->prev;
@@ -125,8 +115,17 @@ public:
         }
         ++size;
     }
-    void popBack();
-    void popFront();
+
+    void popBack()
+    {
+        auto tmp{end};
+        end = std::prev(end);
+        delete tmp;
+    }
+    void popFront()
+    {
+
+    }
 
     void insert(const list_utils::Iterator<T>& it, const T& value)
     {
