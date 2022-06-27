@@ -108,13 +108,25 @@ public:
 
     void erase(const list_utils::Iterator<T>& it, const T& value)
     {
+        list_utils::Node<T> * pr{std::prev(it)};
+        list_utils::Node<T> * nx{std::next(it)};
+        pr->next = nx;
+        nx->prev = pr;
+        delete it;
     }
 
     T& back() const { return (std::prev(end))->value; }
     T& front() const { return begin->value; }
     [[nodiscard]] bool isEmpty() const { return size == 0; }
 
-    ~linked_list()=default;
+    ~linked_list()
+    {
+        if(isEmpty())
+            return;
+        while(begin != end)
+            begin = begin->next; delete begin->prev;
+
+    }
 private:
     list_utils::Node<T>* begin{};
     list_utils::Node<T>* end{};
