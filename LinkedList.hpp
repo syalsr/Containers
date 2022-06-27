@@ -89,7 +89,10 @@ public:
     {
 
     }
-    void pushBack(const T& value);
+    void pushBack(const T& value)
+    {
+
+    }
     void pushFront(const T& value);
     void popBack();
     void popFront();
@@ -115,7 +118,7 @@ public:
         delete it;
     }
 
-    T& back() const { return (std::prev(end))->value; }
+    T& back() const { return (end)->value; }
     T& front() const { return begin->value; }
     [[nodiscard]] bool isEmpty() const { return size == 0; }
 
@@ -125,7 +128,7 @@ public:
             return;
         while(begin != end)
             begin = begin->next; delete begin->prev;
-
+        delete begin;
     }
 private:
     list_utils::Node<T>* begin{};
