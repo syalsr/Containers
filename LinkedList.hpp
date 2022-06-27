@@ -89,7 +89,7 @@ public:
     {
 
     }
-    void pushBack(const T& value)
+    void push_back(const T& value)
     {
         if(isEmpty())
         {
@@ -107,7 +107,7 @@ public:
         }
         ++size;
     }
-    void pushFront(const T& value)
+    void push_front(const T& value)
     {
         if(isEmpty())
         {
@@ -117,8 +117,10 @@ public:
         }
         else
         {
+            auto tmp{begin};
             begin->prev = new list_utils::Node<T>{};
             begin = begin->prev;
+            begin->next = tmp;
             begin->value = value;
         }
         ++size;
